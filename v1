@@ -1,0 +1,61 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+
+# Set page title
+st.set_page_config(page_title="My Streamlit App", layout="wide")
+
+# Add a title
+st.title("Welcome to My Streamlit App")
+
+# Add some text
+st.write("This is a simple Streamlit app with various elements.")
+
+# Create a sidebar
+st.sidebar.header("Sidebar")
+user_input = st.sidebar.text_input("Enter your name", "")
+st.sidebar.write(f"Hello, {user_input}!")
+
+# Create two columns
+col1, col2 = st.columns(2)
+
+# Column 1: Add a chart
+with col1:
+    st.subheader("Sample Chart")
+    chart_data = pd.DataFrame(
+        np.random.randn(20, 3),
+        columns=['A', 'B', 'C']
+    )
+    st.line_chart(chart_data)
+
+# Column 2: Add a data table
+with col2:
+    st.subheader("Sample Data")
+    df = pd.DataFrame({
+        'Name': ['John', 'Jane', 'Bob', 'Alice'],
+        'Age': [25, 30, 35, 28]
+        ,
+        'City': ['New York', 'San Francisco', 'Chicago', 'Boston']
+    })
+    st.dataframe(df)
+
+# Add a button
+if st.button("Click me!"):
+    st.balloons()
+
+# Add a slider
+value = st.slider("Select a value", 0, 100, 50)
+st.write(f"You selected: {value}")
+
+# File uploader
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    st.write("File uploaded successfully!")
+
+# Add a map
+st.subheader("Sample Map")
+map_data = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon']
+)
+st.map(map_data)
